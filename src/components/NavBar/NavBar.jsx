@@ -4,9 +4,10 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { searchBackend } from "../../axios";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { searchBackend } from "../../axios"; 
+import NorthWestIcon from '@mui/icons-material/NorthWest';
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { Link } from "react-router-dom";
 
 function NavBar(props) {
   const [suggestions, setSuggestions] = useState([]);
@@ -20,7 +21,7 @@ function NavBar(props) {
     window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 766));
     if (contentRef?.current) {
       contentRef?.current?.addEventListener("scroll", () => {
-        setShowShadow(contentRef?.current.offsetTop + contentRef?.current.scrollTop + contentRef?.current.clientTop>0);
+        setShowShadow(contentRef?.current.offsetTop + contentRef?.current.scrollTop + contentRef?.current.clientTop > 0);
       });
     }
     return () => {
@@ -54,7 +55,7 @@ function NavBar(props) {
                     <SearchIcon />
                     <div className="textContent">{e.title}</div>
                   </div>
-                  <ArrowForwardIcon />
+                  <NorthWestIcon />
                 </li>
               );
           })
@@ -72,7 +73,9 @@ function NavBar(props) {
           {!showSuggestions && (
             <>
               <div className="logo">
-                <img src="/logo/logo.png" alt="Logo" />
+                <Link to={"/"}>
+                  <img src="/logo/logo.png" alt="Logo" />
+                </Link>
               </div>
               <div className="right">
                 <IconButton aria-label="Search" size="large" onClick={() => setshowSuggestions(!showSuggestions)}>
@@ -107,7 +110,9 @@ function NavBar(props) {
         <div className={`NavBar PC ${showShadow ? "shadow" : ""}`}>
           <div className="left">
             <div className="logo">
-              <img src="/logo/logo.png" alt="Logo" />
+              <Link to={"/"}>
+                <img src="/logo/logo.png" alt="Logo" />
+              </Link>
             </div>
             <div className="buttons">
               <Button variant="text" startIcon={<ShoppingBagIcon />}>
