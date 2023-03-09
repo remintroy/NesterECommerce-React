@@ -3,7 +3,7 @@ import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/s
 import Homepage from "./Pages/HomePage/Homepage";
 import NotFound from "./Pages/NotFound/NotFound";
 import { Route, Routes } from "react-router-dom";
-import ProductView from "./Pages/ProductView/ProductView";
+import ProductView from "./Pages/Product/Product";
 import SignIn from "./Pages/SignIn/SignIn";
 import NavBar from "./components/NavBar/NavBar";
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsBackend, staticFilesBacked } from "../../axios";
 import Header from "../../components/Header/Header";
-import "./ProductView.css";
+import "./Product.css";
 import { Button, Rating, Skeleton } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
