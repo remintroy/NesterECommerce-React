@@ -23,15 +23,15 @@ function ProductList(props) {
     return (
       <div className="ProductList">
         <div className="imgCont">
-          <Skeleton variant="rounded" height={"100%"} />
+          <Skeleton variant="rounded" animation="wave" height={"100%"} />
         </div>
         <div className="dataCont skl">
           <div className="category">
-            <Skeleton variant="rounded" height={"70px"} width={"100%"} />
+            <Skeleton variant="rounded"  animation="wave" height={"70px"} width={"100%"} />
           </div>
-          <Skeleton variant="rounded" height={"20px"} />
+          <Skeleton variant="rounded" animation="wave" height={"20px"} />
           <div>
-            <Skeleton variant="rounded" height={"90px"} />
+            <Skeleton variant="rounded" animation="wave" height={"90px"} />
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ function ProductList(props) {
     } = props;
 
     return (
-      <div className="ProductList" onClick={() => navigate(`/products/${PID}`)}>
+      <div className="ProductList" onClick={() => navigate(`/product/${PID}`)}>
         <div className="imgCont">
           <img src={`${staticFilesBacked}/product_images/${PID}1.jpg`} alt="Product" />
         </div>
@@ -62,7 +62,7 @@ function ProductList(props) {
             {offer > 0 && <b className="offer"> {offer}Rs OFF</b>}
           </div>
           <div>
-            <small>{offer > 0 ? `MRP : ₹${price}` : ""}</small>
+            <small>{true ? `MRP : ₹${price}` : ""}</small>
           </div>
           <div>
             <small className={`category ${stock <= 5 ? "danger" : ""}`}>

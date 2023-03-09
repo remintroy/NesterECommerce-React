@@ -1,4 +1,5 @@
-import { Container } from "@mui/material";
+import { Container, Skeleton } from "@mui/material";
+import { Stack } from "@mui/system";
 import React from "react";
 import "./Header.css";
 
@@ -7,8 +8,18 @@ function Header(props) {
     <div className="Header">
       <Container maxWidth="lg">
         <div>
-          <h1>{props?.title ? props.title : "Explore new products !"}</h1>
-          <p>{props?.path ? props.path : ""}</p>
+          {!props?.title && (
+            <Stack spacing={1}>
+              <Skeleton variant="rounded" height={"40px"} width={"100%"} />
+              <Skeleton variant="rounded" height={"20px"} width={"150px"} />
+            </Stack>
+          )}
+          {props?.title && (
+            <>
+              <h1>{props?.title ? props.title : "Explore new products !"}</h1>
+              <p>{props?.path ? props.path : ""}</p>
+            </>
+          )}
         </div>
       </Container>
     </div>

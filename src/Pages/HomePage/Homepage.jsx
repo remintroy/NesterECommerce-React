@@ -2,23 +2,12 @@ import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { searchBackend } from "../../axios";
 import Header from "../../components/Header/Header";
+import NavBar from "../../components/NavBar/NavBar";
 import ProductList from "../../components/ProductList/ProductList";
 import "./HomePage.css";
 
 function Homepage() {
-  const [productData, setProductData] = useState([1, 2, 3, 4, 5]);
-
-  // {
-  //   PID: "QooEUSLGqGCIBksMzyQ6",
-  //   creationTime: "2022-11-26T06:27:10.947Z",
-  //   title: "Generic Multi-Purpose Mountain Bike Repair Toolkit, Adult",
-  //   description:
-  //     "Packer: Eagle Network Supply Pvt. Ltd. , Khasra No. 399 Delhi - 110030\nIncludes: 1 Mountain Bike Repair Toolkit\nColor: Black",
-  //   category: "handle",
-  //   stock: 300,
-  //   offer: 0,
-  //   price: 193,
-  // }
+  const [productData, setProductData] = useState([1, 2, 3, 4, 5,5]);
 
   useEffect(() => {
     const getSampleProductData = async () => {
@@ -35,12 +24,13 @@ function Homepage() {
   }, []);
 
   return (
-    <div>
+    <NavBar>
       <Header title={"Explore and find your favorate products"} path={"Nester > Home"} />
       <Container>
-        <ProductList data={productData}></ProductList>
+        <h3>#Top 6</h3>
+        <ProductList data={productData.slice(0,6)}></ProductList>
       </Container>
-    </div>
+    </NavBar>
   );
 }
 

@@ -4,24 +4,26 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { searchBackend } from "../../axios"; 
-import NorthWestIcon from '@mui/icons-material/NorthWest';
+import { searchBackend } from "../../axios";
+import NorthWestIcon from "@mui/icons-material/NorthWest";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar(props) {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setshowSuggestions] = useState(false);
   const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 766);
-  const [showShadow, setShowShadow] = useState(false);
+  const [isMoved, setIsScorlled] = useState(false);
+  const [searchInputValue, setSearchInputValue] = useState("");
   const inputRef = useRef(null);
   const contentRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 766));
     if (contentRef?.current) {
       contentRef?.current?.addEventListener("scroll", () => {
-        setShowShadow(contentRef?.current.offsetTop + contentRef?.current.scrollTop + contentRef?.current.clientTop > 0);
+        setIsScorlled(contentRef?.current.offsetTop + contentRef?.current.scrollTop + contentRef?.current.clientTop > 0);
       });
     }
     return () => {
@@ -30,18 +32,23 @@ function NavBar(props) {
     };
   }, [contentRef]);
 
+  // focus on search input
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
   }, [showSuggestions]);
 
-  const getSuggestionsFromServer = async (query) => {
-    try {
-      const { data } = await searchBackend.get(`/api/search?q=${query?.trim()}`);
-      setSuggestions(data.message);
-    } catch (error) {
-      console.warn(error);
-    }
-  };
+  // search suggestions
+  useEffect(() => {
+    const getSuggestionsFromServer = async () => {
+      try {
+        const { data } = await searchBackend.get(`/api/search?q=${searchInputValue?.trim()}`);
+        setSuggestions(data.message);
+      } catch (error) {
+        console.warn(error);
+      }
+    };
+    getSuggestionsFromServer();
+  }, [searchInputValue]);
 
   const ResultsComponent = () => {
     return (
@@ -69,7 +76,7 @@ function NavBar(props) {
   return (
     <>
       {!thisIsPc && (
-        <div className={`NavBar ${showShadow ? "shadow" : ""}`}>
+        <div className={`NavBar ${isMoved ? "shadow" : ""}`}>
           {!showSuggestions && (
             <>
               <div className="logo">
@@ -81,7 +88,9 @@ function NavBar(props) {
                 <IconButton aria-label="Search" size="large" onClick={() => setshowSuggestions(!showSuggestions)}>
                   <SearchIcon />
                 </IconButton>
-                <Button variant="outlined">Login</Button>
+                <Button variant="outlined" onClick={() => navigate("/signin")}>
+                  Login
+                </Button>
               </div>
             </>
           )}
@@ -95,7 +104,10 @@ function NavBar(props) {
                   ref={inputRef}
                   type="text"
                   placeholder="Search"
-                  onChange={(e) => getSuggestionsFromServer(e.target.value)}
+                  value={searchInputValue}
+                  onChange={(e) => {
+                    setSearchInputValue(e.target.value?.trim().length === 0 ? "" : e.target.value);
+                  }}
                 />
                 <IconButton aria-label="Search" size="large">
                   <SearchIcon />
@@ -107,7 +119,7 @@ function NavBar(props) {
       )}
 
       {thisIsPc && (
-        <div className={`NavBar PC ${showShadow ? "shadow" : ""}`}>
+        <div className={`NavBar PC ${isMoved ? "shadow" : ""}`}>
           <div className="left">
             <div className="logo">
               <Link to={"/"}>
@@ -122,7 +134,14 @@ function NavBar(props) {
           </div>
           <div className="searchCont">
             <div className="suggestionAndInput">
-              <input type="text" placeholder="Search" onChange={(e) => getSuggestionsFromServer(e.target.value)} />
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchInputValue}
+                onChange={(e) => {
+                  setSearchInputValue(e.target.value?.trim().length === 0 ? "" : e.target.value);
+                }}
+              />
               <ul className="suggestionPannelPC">
                 <ResultsComponent />
               </ul>
@@ -132,7 +151,9 @@ function NavBar(props) {
             </IconButton>
           </div>
           <div className="right">
-            <Button variant="outlined">Login</Button>
+            <Button variant="outlined" onClick={() => navigate("/signin")}>
+              Login
+            </Button>
           </div>
         </div>
       )}
