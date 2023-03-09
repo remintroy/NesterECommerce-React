@@ -5,16 +5,19 @@ import NotFound from "./Pages/NotFound/NotFound";
 import { Route, Routes } from "react-router-dom";
 import ProductView from "./Pages/ProductView/ProductView";
 import SignIn from "./Pages/SignIn/SignIn";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
     <CssVarsProvider>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/product/:pid" element={<ProductView />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <NavBar>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/product/:pid" element={<ProductView />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </NavBar>
     </CssVarsProvider>
   );
 }

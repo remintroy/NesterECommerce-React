@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsBackend, staticFilesBacked } from "../../axios";
 import Header from "../../components/Header/Header";
-import NavBar from "../../components/NavBar/NavBar";
 import "./ProductView.css";
 import { Button, Rating, Skeleton } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -23,7 +22,7 @@ function ProductView() {
         console.warn("Error : ", error);
       }
     })();
-  }, []);
+  }, [pid]);
 
   const SkeltonLodingForProductDescriptions = () => {
     return (
@@ -64,7 +63,7 @@ function ProductView() {
   };
 
   const ProductDescriptionsPc = () => {
-    if (!productData) return <SkeltonLodingForProductDescriptions />;
+    if (!productData?.title) return <SkeltonLodingForProductDescriptions />;
 
     // getting nessory values
     const { title, category, price, offer, rating, creationTime, stock, description, PID } = productData;
@@ -73,13 +72,13 @@ function ProductView() {
       <div className="ProductBasisPc">
         <div className="left">
           <div className="displayImgCont">
-            <img src={staticFilesBacked + `/product_images/${PID}1.jpg`} alt="image" />
+            <img src={staticFilesBacked + `/product_images/${PID}1.jpg`} alt="Display" />
           </div>
           <div className="moreImgList">
-            <img src={staticFilesBacked + `/product_images/${PID}1.jpg`} alt="" />
-            <img src={staticFilesBacked + `/product_images/${PID}2.jpg`} alt="" />
-            <img src={staticFilesBacked + `/product_images/${PID}3.jpg`} alt="" />
-            <img src={staticFilesBacked + `/product_images/${PID}4.jpg`} alt="" />
+            <img src={staticFilesBacked + `/product_images/${PID}1.jpg`} alt="sub" />
+            <img src={staticFilesBacked + `/product_images/${PID}2.jpg`} alt="sub" />
+            <img src={staticFilesBacked + `/product_images/${PID}3.jpg`} alt="sub" />
+            <img src={staticFilesBacked + `/product_images/${PID}4.jpg`} alt="sub" />
           </div>
         </div>
         <div className="right">
@@ -116,7 +115,7 @@ function ProductView() {
 
   // Component
   const ProductDescriptionsMb = () => {
-    if (!productData) return <SkeltonLodingForProductDescriptions />;
+    if (!productData?.title) return <SkeltonLodingForProductDescriptions />;
 
     // getting nessory values
     const { title, category, price, offer, rating, creationTime, stock, description } = productData;
@@ -130,13 +129,13 @@ function ProductView() {
         )}
         <div className="left">
           <div className="displayImgCont">
-            <img src={staticFilesBacked + `/product_images/${productData?.PID}1.jpg`} alt="image" />
+            <img src={staticFilesBacked + `/product_images/${productData?.PID}1.jpg`} alt="Display" />
           </div>
           <div className="moreImgList">
-            <img src={staticFilesBacked + `/product_images/${productData?.PID}1.jpg`} alt="" />
-            <img src={staticFilesBacked + `/product_images/${productData?.PID}2.jpg`} alt="" />
-            <img src={staticFilesBacked + `/product_images/${productData?.PID}3.jpg`} alt="" />
-            <img src={staticFilesBacked + `/product_images/${productData?.PID}4.jpg`} alt="" />
+            <img src={staticFilesBacked + `/product_images/${productData?.PID}1.jpg`} alt="sub" />
+            <img src={staticFilesBacked + `/product_images/${productData?.PID}2.jpg`} alt="sub" />
+            <img src={staticFilesBacked + `/product_images/${productData?.PID}3.jpg`} alt="sub" />
+            <img src={staticFilesBacked + `/product_images/${productData?.PID}4.jpg`} alt="sub" />
           </div>
         </div>
         <div className="right">
@@ -183,13 +182,13 @@ function ProductView() {
   };
 
   return (
-    <NavBar>
+    <>
       <Header title={productData?.title ? `Product from ${productData?.category}` : null} path="Nester > Product" />
       <Container>
         {!isPc && <ProductDescriptionsMb />}
         {isPc && <ProductDescriptionsPc />}
       </Container>
-    </NavBar>
+    </>
   );
 }
 

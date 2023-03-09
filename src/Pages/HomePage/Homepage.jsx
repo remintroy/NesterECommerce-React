@@ -1,13 +1,12 @@
 import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { searchBackend } from "../../axios";
-import Header from "../../components/Header/Header";
-import NavBar from "../../components/NavBar/NavBar";
+import Header from "../../components/Header/Header"; 
 import ProductList from "../../components/ProductList/ProductList";
 import "./HomePage.css";
 
 function Homepage() {
-  const [productData, setProductData] = useState([1, 2, 3, 4, 5,5]);
+  const [productData, setProductData] = useState([1, 2, 3, 4, 5, 5]);
 
   useEffect(() => {
     const getSampleProductData = async () => {
@@ -24,13 +23,13 @@ function Homepage() {
   }, []);
 
   return (
-    <NavBar>
+    <>
       <Header title={"Explore and find your favorate products"} path={"Nester > Home"} />
       <Container>
         <h3>#Top 6</h3>
-        <ProductList data={productData.slice(0,6)}></ProductList>
+        <ProductList data={productData.slice(0, 6)}></ProductList>
       </Container>
-    </NavBar>
+    </>
   );
 }
 
