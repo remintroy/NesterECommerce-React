@@ -4,6 +4,7 @@ import { cartBackend, staticFilesBacked } from "../../configs/axios.js";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./ProductView.css";
 import NotiUserContext from "../../context/NotiUserContext.jsx";
+import UserContext from "../../context/UserContext.jsx";
 
 const SkeltonLoding = () => {
   return (
@@ -45,13 +46,25 @@ const SkeltonLoding = () => {
 
 function ProductView({ productData }) {
   const { notiUser } = useContext(NotiUserContext);
+  const { user } = useContext(UserContext);
 
-  const addToCart = (pid) => {
-    try {
-      const { data } = cartBackend.post("/add", { pid },);
-      //...
-    } catch (error) {
-      notiUser(error, false, null);
+  const addToCart = async (pid) => {
+    if (!user) {
+    } else {
+      try {
+        // eslint-disable-next-line
+        const { data } = await cartBackend.post(
+          "/add",
+          { pid, quantity: undefined },
+          { headers: { Authorization: `Bearer ${user?.accessToken}` } }
+        );
+        notiUser({ message: data?.message ? data.message : "Success" });
+      } catch (error) {
+        notiUser({
+          message: error?.response?.data?.error ? error?.response?.data?.error : "Faild while adding to cart",
+          good: false,
+        });
+      }
     }
   };
 
@@ -92,7 +105,7 @@ function ProductView({ productData }) {
             </span>
           </div>
           <div className="buttonCont bbr">
-            <Button variant="contained" startIcon={<AddShoppingCartIcon />} color="secondary">
+            <Button variant="contained" startIcon={<AddShoppingCartIcon />} color="secondary" onClick={() => addToCart(pid)}>
               Add to cart
             </Button>
             <Button variant="contained" color="success">

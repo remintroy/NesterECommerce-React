@@ -23,10 +23,12 @@
     width: inherit;
     overflow: hidden;
     gap: 20px;
-
+    
     .imgCont {
         width: 200px;
-
+        background-color: white;
+        border-radius: 5px;
+        
         img {
             padding: 0px;
             width: 100%;

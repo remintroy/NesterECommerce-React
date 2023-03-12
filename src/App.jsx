@@ -10,9 +10,12 @@ import SignIn from "./Pages/SignIn/SignIn";
 import NavBar from "./components/NavBar/NavBar";
 import { authBackend } from "./configs/axios";
 import NotiUserContext from "./context/NotiUserContext";
+import NotiUser from "./components/NotiUser/NotiUser";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [notiData, setNotiData] = useState({ message: "Welcome to Nester", error: false, action: "Ok" });
+  // const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
     (async () => {
@@ -40,18 +43,18 @@ function App() {
       })();
     }, 19 * 60 * 1000);
 
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
+    //
   }, [user]);
 
   const notiUser = ({ message, good, action }) => {
-    console.log(message, good, action);
+    if (!message) return;
+    setNotiData({ message: message, action: action ? action : "", good: good ? true : false });
   };
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <NotiUserContext.Provider value={{ notiUser }}>
+      <NotiUserContext.Provider value={{ notiUser, notiData, setNotiData }}>
         <CssVarsProvider>
           <NavBar>
             <Routes>
@@ -61,6 +64,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </NavBar>
+          <NotiUser />
         </CssVarsProvider>
       </NotiUserContext.Provider>
     </UserContext.Provider>

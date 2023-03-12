@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400&display=swap");
 
 :root {
   --themeBg: rgb(255, 255, 255);
   --borderCommon: rgb(224, 224, 224);
+
+  /* --themeBg: rgb(40, 40, 40);
+  color: white;
+  --borderCommon: rgb(72, 72, 72); */
 }
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
