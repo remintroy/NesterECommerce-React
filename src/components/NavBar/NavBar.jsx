@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./NavBar.css";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
+import { Avatar } from "@mui/material";
+import UserContext from "../../context/UserContext";
+import HomeIcon from "@mui/icons-material/Home";
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 function NavBar(props) {
   const [showSuggestions, setshowSuggestions] = useState(false);
@@ -13,6 +18,8 @@ function NavBar(props) {
   const [isScrolled, setIsScorlled] = useState(false);
   const contentRef = useRef(null);
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const location = useLocation();
 
   useEffect(() => {
     window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 766));
@@ -39,9 +46,12 @@ function NavBar(props) {
                 <IconButton aria-label="Search" size="large" onClick={() => setshowSuggestions(!showSuggestions)}>
                   <SearchIcon />
                 </IconButton>
-                <Button variant="outlined" onClick={() => navigate("/signin")}>
-                  Login
-                </Button>
+                {user && <Avatar alt={user.email} src={user.photoURL} />}
+                {!user && (
+                  <Button variant="outlined" onClick={() => navigate("/signin")}>
+                    Login
+                  </Button>
+                )}
               </div>
             </>
           )}
@@ -65,16 +75,36 @@ function NavBar(props) {
           </div>
           <SearchBar type={thisIsPc ? "pc" : "mb"} />
           <div className="right">
-            <Button variant="outlined" onClick={() => navigate("/signin")}>
-              Login
-            </Button>
+            {user && <Avatar alt={user.email} src={user.photoURL} />}
+            {!user && (
+              <Button variant="outlined" onClick={() => navigate("/signin")}>
+                Login
+              </Button>
+            )}
           </div>
         </div>
       )}
 
-      <div ref={contentRef} className="content">
+      <div ref={contentRef} className="content" id="content">
         {props.children}
       </div>
+
+      {!thisIsPc && (
+        <div className="bottomNav ">
+          <div className={`iconCont ${location.pathname === "/" ? "on" : ""}`} onClick={() => navigate("/")}>
+            <HomeIcon />
+          </div>
+          <div className={`iconCont ${location.pathname === "/shop" ? "on" : ""}`} onClick={() => navigate("/shop")}>
+            <ShoppingBagIcon />
+          </div>
+          <div className={`iconCont ${location.pathname === "/cart" ? "on" : ""}`} onClick={() => navigate("/cart")}>
+            <LocalGroceryStoreIcon />
+          </div>
+          <div className={`iconCont ${location.pathname === "/settings" ? "on" : ""}`} onClick={() => navigate("/settings")}>
+            <SettingsIcon />
+          </div>
+        </div>
+      )}
     </>
   );
 }

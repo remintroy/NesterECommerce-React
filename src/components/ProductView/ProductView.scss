@@ -1,1 +1,141 @@
- 
+.ProductViewComponent {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    border-radius: 5px;
+    overflow: hidden;
+    gap: 20px;
+
+    @media screen and (max-width:700px) {
+        grid-template-columns: 1fr;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        object-fit: scale-down;
+
+        @media screen and (max-width:700px) {
+            padding: 0;
+        }
+
+        .moreImgList {
+            align-items: center;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 20px;
+            padding: 20px 0;
+            padding-bottom: 0;
+
+            img {
+                width: 100%;
+                height: 85px;
+                max-height: 110px;
+                object-fit: scale-down;
+            }
+        }
+
+        .displayImgCont {
+            box-sizing: border-box;
+            width: 400px;
+            height: 400px;
+            background-color: white;
+            overflow: hidden;
+            border-radius: 5px;
+
+            @media screen and (max-width:700px) {
+                width: 100%;
+                height: auto;
+                min-height: 400px;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: scale-down;
+            }
+
+        }
+    }
+
+    .right {
+        overflow: hidden;
+        box-sizing: border-box;
+        padding-top: 0;
+        border-radius: 5px;
+
+        @media screen and (max-width:700px) {
+            padding: 0;
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        .buttonCont {
+            display: flex;
+            gap: 10px;
+
+            @media screen and (max-width:870px) {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                padding: 15px;
+                background-color: rgb(58, 58, 58);
+            }
+        }
+
+        .price {
+            display: flex;
+            align-items: center;
+
+            .offer {
+                margin-left: 10px;
+                padding: 0 10px;
+                background-color: rgb(203, 255, 168);
+                color: green;
+                font-size: small;
+            }
+        }
+
+        .A {
+            text-transform: capitalize;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .b {
+            font-weight: bold;
+        }
+
+        .dim {
+            color: gray;
+        }
+
+        .br {
+            margin-top: 10px;
+        }
+
+        .bbr {
+            margin-top: 20px;
+        }
+
+        .sm {
+            font-size: small;
+        }
+
+        .danger {
+            color: rgb(196, 47, 47);
+        }
+
+    }
+}

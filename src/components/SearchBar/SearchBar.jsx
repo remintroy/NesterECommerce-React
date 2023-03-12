@@ -4,9 +4,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import NorthWestIcon from "@mui/icons-material/NorthWest";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { searchBackend } from "../../axios";
+import { searchBackend } from "../../configs/axios.js";
 
-const Suggestions = ({ data, type, show = true }) => {
+const Suggestions = ({ data, type, show = true, query }) => {
   if (!show) return "5";
   return (
     <ul className={`${type === "pc" ? "suggestionPannelPC" : "SearchBar NavBarResults"}`}>
@@ -25,7 +25,13 @@ const Suggestions = ({ data, type, show = true }) => {
           );
         })
       ) : (
-        <li>No result found !</li>
+        <li>
+          <div className="aligner">
+            <SearchIcon />
+            <div className="textContent"> {query ? query : ""}</div>
+          </div>
+          <NorthWestIcon />
+        </li>
       )}
     </ul>
   );
@@ -40,9 +46,11 @@ function SearchBar({ type, setShow }) {
     const getDataFromServer = async () => {
       try {
         const { data } = await searchBackend.get(`/api/search?q=${query?.trim()}`);
-        setCache((cache) => {
-          return { ...cache, [query]: data?.message };
-        });
+
+        if (data?.message?.status !== "error")
+          setCache((cache) => {
+            return { ...cache, [query]: data?.message };
+          });
       } catch (error) {
         console.warn(error);
       }
@@ -75,7 +83,7 @@ function SearchBar({ type, setShow }) {
               <SearchIcon />
             </IconButton>
           </div>
-          <Suggestions data={data} />
+          <Suggestions data={data} query={query} />
         </>
       )}
 
@@ -88,7 +96,7 @@ function SearchBar({ type, setShow }) {
               value={query}
               onChange={(e) => setQuery(e.target.value?.trim().length === 0 ? "" : e.target.value)}
             />
-            <Suggestions data={data} type="pc" />
+            <Suggestions data={data} type="pc" query={query} />
           </div>
           <IconButton aria-label="Search" size="large">
             <SearchIcon />

@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { searchBackend } from "../../axios";
+import { searchBackend } from "../../configs/axios.js";
 import Header from "../../components/Header/Header"; 
 import ProductList from "../../components/ProductList/ProductList";
 import "./HomePage.css";

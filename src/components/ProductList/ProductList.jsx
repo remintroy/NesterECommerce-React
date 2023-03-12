@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ProductList.css";
-import { staticFilesBacked } from "../../axios";
+import { staticFilesBacked } from "../../configs/axios.js";
 import Rating from "@mui/material/Rating";
 import { Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function ProductList(props) {
-  // PID: "XDZR-b4SMBJKDKWn0QdG",
-  // creationTime: "2022-11-26T06:27:10.947Z",
-  // title: "Generic Multi-Purpose Mountain Bike Repair Toolkit, Adult",
-  // description:
-  //   "Packer: Eagle Network Supply Pvt. Ltd. , Khasra No. 399 Delhi - 110030\nIncludes: 1 Mountain Bike Repair Toolkit\nColor: Black",
-  // category: "handle",
-  // stock: 300,
-  // offer: 0,
-  // price: 193,
-
-  const [value, setValue] = useState(2);
+function ProductList({ data }) {
   const navigate = useNavigate();
 
   const skeltionLoading = () => {
@@ -27,7 +16,7 @@ function ProductList(props) {
         </div>
         <div className="dataCont skl">
           <div className="category">
-            <Skeleton variant="rounded"  animation="wave" height={"70px"} width={"100%"} />
+            <Skeleton variant="rounded" animation="wave" height={"70px"} width={"100%"} />
           </div>
           <Skeleton variant="rounded" animation="wave" height={"20px"} />
           <div>
@@ -38,12 +27,10 @@ function ProductList(props) {
     );
   };
 
-  const ProductListComponent = (props) => {
-    if (!props?.data?.PID) return skeltionLoading();
+  const ProductListComponent = ({ data }) => {
+    if (!data?.PID) return skeltionLoading();
 
-    const {
-      data: { PID, title, category, stock, offer, price },
-    } = props;
+    const { PID, title, category, stock, offer, price, rating } = data;
 
     return (
       <div className="ProductList" onClick={() => navigate(`/product/${PID}`)}>
@@ -69,13 +56,7 @@ function ProductList(props) {
               {stock > 5 ? "In Stock" : stock > 0 ? `Only ${stock} Left Hurry up!` : "Out of stock"}
             </small>
           </div>
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          />
+          <Rating name="simple-controlled" value={rating} readOnly />
         </div>
       </div>
     );
@@ -87,7 +68,7 @@ function ProductList(props) {
 
   return (
     <ProductListUlComponent>
-      {props?.data?.map((product, index) => {
+      {data?.map((product, index) => {
         return <ProductListComponent key={product?.PID ? product.PID : index} data={product}></ProductListComponent>;
       })}
     </ProductListUlComponent>

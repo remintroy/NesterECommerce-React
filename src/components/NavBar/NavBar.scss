@@ -1,11 +1,11 @@
 .NavBar {
     width: 100%;
     position: fixed;
-    height: 60px;
+    height: 55px;
     background-color: var(--themeBg);
     border-bottom: 1px solid var(--borderCommon);
     box-sizing: border-box;
-    padding: 8px 15px;
+    padding: 4px 15px;
     display: grid;
     grid-template-columns: 100px 150px;
     gap: 20px;
@@ -85,7 +85,39 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 60px 0;
+    padding: 55px 0 70px 0;
     overflow-x: hidden;
     background-color: var(--themeBg);
+}
+
+.bottomNav {
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    border: 1px solid var(--borderCommon);
+    background-color: var(--themeBg);
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    align-items: center;
+    gap: 15px;
+    box-sizing: border-box;
+    padding: 5px 15px;
+
+    .iconCont {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+    }
+
+    .iconCont.on {
+        background-color: rgb(229, 229, 229);
+    }
+}
+
+.bottomNav.shadow {
+    box-shadow: 0 0 10px 10px rgba(30, 30, 30, 0.078);
 }

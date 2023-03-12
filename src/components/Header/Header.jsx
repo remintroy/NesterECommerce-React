@@ -1,9 +1,17 @@
 import { Container, Skeleton } from "@mui/material";
 import { Stack } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 
 function Header(props) {
+  const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 766);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 766));
+  }, []);
+
+  if (!thisIsPc) return "";
+
   return (
     <div className="Header">
       <Container maxWidth="lg">
