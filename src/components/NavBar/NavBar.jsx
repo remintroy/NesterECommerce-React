@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { Avatar } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 import UserContext from "../../context/UserContext";
 import HomeIcon from "@mui/icons-material/Home";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
@@ -16,6 +16,7 @@ function NavBar(props) {
   const [showSuggestions, setshowSuggestions] = useState(false);
   const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 766);
   const [isScrolled, setIsScorlled] = useState(false);
+  const [cart, setCart] = useState(0);
   const contentRef = useRef(null);
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
@@ -68,13 +69,23 @@ function NavBar(props) {
               </Link>
             </div>
             <div className="buttons">
-              <Button variant="text" startIcon={<ShoppingBagIcon />}>
+              <Button variant="text" startIcon={<ShoppingBagIcon />} onClick={() => navigate("/shop")}>
                 Shop
               </Button>
             </div>
           </div>
           <SearchBar type={thisIsPc ? "pc" : "mb"} />
           <div className="right">
+            <Badge
+              className="cart"
+              onClick={() => {
+                setCart((pre) => pre + 1);
+              }}
+              badgeContent={cart}
+              color="primary"
+            >
+              <LocalGroceryStoreIcon />
+            </Badge>
             {user && <Avatar alt={user.email} src={user.photoURL} />}
             {!user && (
               <Button variant="outlined" onClick={() => navigate("/signin")}>
@@ -92,16 +103,18 @@ function NavBar(props) {
       {!thisIsPc && (
         <div className="bottomNav ">
           <div className={`iconCont ${location.pathname === "/" ? "on" : ""}`} onClick={() => navigate("/")}>
-            <HomeIcon />
+            <HomeIcon color={`${location.pathname !== "/" ? "action" : ""}`} />
           </div>
           <div className={`iconCont ${location.pathname === "/shop" ? "on" : ""}`} onClick={() => navigate("/shop")}>
-            <ShoppingBagIcon />
+            <ShoppingBagIcon color={`${location.pathname !== "/shop" ? "action" : ""}`} />
           </div>
           <div className={`iconCont ${location.pathname === "/cart" ? "on" : ""}`} onClick={() => navigate("/cart")}>
-            <LocalGroceryStoreIcon />
+            <Badge badgeContent={cart} color="primary">
+              <LocalGroceryStoreIcon color={`${location.pathname !== "/cart" ? "action" : ""}`} />
+            </Badge>
           </div>
           <div className={`iconCont ${location.pathname === "/settings" ? "on" : ""}`} onClick={() => navigate("/settings")}>
-            <SettingsIcon />
+            <SettingsIcon color={`${location.pathname !== "/settings" ? "action" : ""}`} />
           </div>
         </div>
       )}

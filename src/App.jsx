@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { authBackend } from "./configs/axios";
 import NotiUserContext from "./context/NotiUserContext";
 import NotiUser from "./components/NotiUser/NotiUser";
+import Shop from "./Pages/Shop/Shop";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -61,6 +62,7 @@ function App() {
               <Route path="/" element={<Homepage />} />
               <Route path="/product/:pid" element={<ProductView />} />
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/shop" element={<Shop />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </NavBar>

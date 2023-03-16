@@ -1,0 +1,46 @@
+.CategoryChip.mb {
+  grid-template-columns: auto;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  padding-right: 0;
+  margin-top: 0;
+  border: none;
+}
+
+.CategoryChip {
+  border: 1px solid var(--borderCommon);
+  display: grid;
+  align-items: center;
+  grid-template-columns: max-content auto;
+  border-radius: 5px;
+  padding-right: 15px;
+  margin-top: 15px;
+  box-sizing: border-box;
+}
+.CategoryChip .title {
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(233, 233, 233, 0.594);
+}
+.CategoryChip .listCont::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
+}
+.CategoryChip .listCont {
+  overflow-y: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+.CategoryChip .listCont .list {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}/*# sourceMappingURL=CategoryChip.css.map */
