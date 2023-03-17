@@ -2,10 +2,10 @@ import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsBackend, searchBackend } from "../../configs/axios.js";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 import "./Product.css";
-import ProductView from "../../components/ProductView/ProductView";
-import ProductList from "../../components/ProductList/ProductList";
+import ProductView from "../../components/ProductView";
+import ProductList from "../../components/ProductList";
 
 function Product() {
   const { pid } = useParams();

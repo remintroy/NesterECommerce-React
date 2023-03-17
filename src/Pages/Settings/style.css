@@ -1,0 +1,44 @@
+.Settngs .contents {
+  display: grid;
+  grid-template-columns: 300px auto;
+  margin-top: 25px;
+  gap: 10px;
+}
+.Settngs .contents .menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.Settngs .contents .menu .btn:hover {
+  background-color: rgba(227, 226, 226, 0.476);
+}
+.Settngs .contents .menu .btn {
+  display: grid;
+  grid-template-columns: 50px auto;
+  border: 1px solid var(--borderCommon);
+  width: 100%;
+  border-radius: 5px;
+  gap: 5px;
+  box-sizing: border-box;
+  padding: 8px;
+  cursor: pointer;
+}
+.Settngs .contents .menu .btn .icnCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Settngs .contents .menu .btn .textCont .head {
+  font-size: medium;
+}
+.Settngs .contents .menu .btn .textCont .tail {
+  font-size: small;
+  filter: opacity(50%);
+}
+.Settngs .contents .page {
+  overflow: hidden;
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+  border: 1px solid var(--borderCommon);
+}/*# sourceMappingURL=style.css.map */

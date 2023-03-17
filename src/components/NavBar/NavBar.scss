@@ -30,13 +30,17 @@
         align-items: center;
         justify-content: flex-end;
 
-        .cart{
+        .cart {
             margin-right: 20px;
         }
 
         .searchIcon {
             display: flex;
             align-items: center;
+        }
+
+        .Avathar {
+            cursor: pointer;
         }
 
         svg {

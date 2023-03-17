@@ -1,8 +1,8 @@
 import React from "react";
 import "./Shop.css";
-import CategoryChip from "../../components/CategoryChip/CategoryChip";
+import CategoryChip from "../../components/CategoryChip";
 import { Container } from "@mui/system";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 
 function Shop() {
   return (

@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../SearchBar";
 import { Avatar, Badge } from "@mui/material";
 import UserContext from "../../context/UserContext";
 import HomeIcon from "@mui/icons-material/Home";
@@ -47,7 +47,7 @@ function NavBar(props) {
                 <IconButton aria-label="Search" size="large" onClick={() => setshowSuggestions(!showSuggestions)}>
                   <SearchIcon />
                 </IconButton>
-                {user && <Avatar alt={user.email} src={user.photoURL} />}
+                {user && <Avatar className="Avathar" onClick={() => navigate("/settings")} alt={user.email} src={user.photoURL} />}
                 {!user && (
                   <Button variant="outlined" onClick={() => navigate("/signin")}>
                     Login
@@ -86,7 +86,7 @@ function NavBar(props) {
             >
               <LocalGroceryStoreIcon />
             </Badge>
-            {user && <Avatar alt={user.email} src={user.photoURL} />}
+            {user && <Avatar className="Avathar" alt={user.email} src={user.photoURL} />}
             {!user && (
               <Button variant="outlined" onClick={() => navigate("/signin")}>
                 Login

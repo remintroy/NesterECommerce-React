@@ -35,6 +35,9 @@
   display: flex;
   align-items: center;
 }
+.NavBar .right .Avathar {
+  cursor: pointer;
+}
 .NavBar .right svg {
   cursor: pointer;
 }

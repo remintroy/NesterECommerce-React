@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./SignIn.css";
 import Button from "@mui/material/Button";
 import googleIcn from "../../images/google.png";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
@@ -21,11 +21,13 @@ function SignIn() {
     setStatusDisp({ error: false, message: "Loading...", show: true });
     try {
       // logins or crate new user using firebase
-      const { user } =
+      const response =
         type === "email"
           ? await signInWithEmailAndPassword(authConfig, email, password)
           : await signInWithPopup(authConfig, new GoogleAuthProvider());
       // sends idToken from firebase to server for login
+      console.log(response);
+      const { user } = response;
       const idToken = await user.getIdToken();
       const { data } = await authBackend.post("/signin", { idToken });
       // saving tokens
