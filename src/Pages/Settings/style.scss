@@ -5,6 +5,10 @@
          margin-top: 25px;
          gap: 10px;
 
+         @media screen and (max-width: 860px) {
+             grid-template-columns: auto;
+         }
+
          .menu {
              display: flex;
              flex-direction: column;
@@ -46,10 +50,15 @@
 
          .page {
              overflow: hidden;
-             border-radius: 5px; 
-             padding: 10px;
+             border-radius: 5px;
              position: relative;
+             padding: 20px;
              border: 1px solid var(--borderCommon);
+
+             @media screen and (max-width: 860px) {
+                 border: none;
+                 padding: 0;
+             }
          }
      }
  }

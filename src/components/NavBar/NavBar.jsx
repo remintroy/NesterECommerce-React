@@ -86,7 +86,7 @@ function NavBar(props) {
             >
               <LocalGroceryStoreIcon />
             </Badge>
-            {user && <Avatar className="Avathar" alt={user.email} src={user.photoURL} />}
+            {user && <Avatar className="Avathar" onClick={() => navigate("/settings")} alt={user.email} src={user.photoURL} />}
             {!user && (
               <Button variant="outlined" onClick={() => navigate("/signin")}>
                 Login

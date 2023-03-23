@@ -125,4 +125,7 @@
 }
 .ProductViewComponent .right .danger {
   color: rgb(196, 47, 47);
+}
+.ProductViewComponent .right .success {
+  color: green;
 }/*# sourceMappingURL=ProductView.css.map */

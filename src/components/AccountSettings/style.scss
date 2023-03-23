@@ -1,37 +1,61 @@
 .AccountSettings {
 
-    box-sizing: border-box;
-    padding: 5px;
-
     .profile {
+        padding: 20px 0;
         display: flex;
-        justify-content: center;
+        align-items: center;
 
         img {
-            max-width: 100px;
-            max-height: 100px;
+            max-width: 120px;
+            max-height: 120px;
             border-radius: 5px;
         }
     }
 
-    .allowEditing {
+    .listCont {
         display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
+        flex-direction: column;
+        gap: 5px;
 
-    .input {
-        .title {
-            text-align: center;
+        .list {
+            width: 100%;
+            border-radius: 3px;
+            border: 1px solid var(--borderCommon);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 8px 15px;
+            color: rgba(0, 0, 0, 0.808);
+            font-weight: bold;
+
+            .dim {
+                color: rgba(0, 0, 0, 0.47);
+            }
+
+            .A {
+                text-transform: capitalize;
+            }
+
+            img {
+                max-width: 120px;
+                max-height: 120px;
+                border-radius: 2px;
+            }
         }
     }
 
-    .inputs {
-        margin-top: 10px;
-        box-sizing: border-box;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    .EditBox {
+        position: absolute;
+        top: "50%";
+        left: "50%";
+        transform: translate(-50%, -50%);
+        width: 300px;
+        background-color:white; 
+        border-radius: "5px"; 
+
+        input{
+            width: 100%;
+        }
     }
 }

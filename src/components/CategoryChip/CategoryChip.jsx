@@ -35,7 +35,7 @@ function CategoryChip() {
 
   return (
     <div className={`CategoryChip ${thisIsPc ? "" : "mb"}`}>
-      {thisIsPc && <div className="title">Top Categorys</div>}
+      {/* {thisIsPc && <div className="title">Top Categorys</div>} */}
       <div className="listCont">
         <div className="list">
           {category.map((e) => {

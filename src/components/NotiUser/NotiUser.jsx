@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./NotiUser.css";
-import { Grow, Snackbar } from "@mui/material";
+import { Alert, Grow, Snackbar } from "@mui/material";
 import NotiUserContext from "../../context/NotiUserContext";
 
 const NotiUser = () => {
@@ -22,7 +22,7 @@ const NotiUser = () => {
 
   return (
     <>
-      {show && (
+      {show && notiData?.message !== "WLCM_5T" && (
         <Snackbar
           sx={{ bottom: { xs: 55, md: 20 } }}
           open={show}
@@ -31,7 +31,13 @@ const NotiUser = () => {
           message={notiData?.message}
           action={notiData?.action}
           TransitionComponent={TransitionLeft}
-        />
+        >
+          {(notiData?.error || notiData?.success) && (
+            <Alert severity={notiData?.error ? "error" : "success"} sx={{ width: "100%" }}>
+              {notiData?.message}
+            </Alert>
+          )}
+        </Snackbar>
       )}
     </>
   );

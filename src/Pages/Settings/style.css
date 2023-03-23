@@ -4,6 +4,11 @@
   margin-top: 25px;
   gap: 10px;
 }
+@media screen and (max-width: 860px) {
+  .Settngs .contents {
+    grid-template-columns: auto;
+  }
+}
 .Settngs .contents .menu {
   display: flex;
   flex-direction: column;
@@ -38,7 +43,13 @@
 .Settngs .contents .page {
   overflow: hidden;
   border-radius: 5px;
-  padding: 10px;
   position: relative;
+  padding: 20px;
   border: 1px solid var(--borderCommon);
+}
+@media screen and (max-width: 860px) {
+  .Settngs .contents .page {
+    border: none;
+    padding: 0;
+  }
 }/*# sourceMappingURL=style.css.map */

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./SignIn.css";
 import Button from "@mui/material/Button";
 import googleIcn from "../../images/google.png";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";

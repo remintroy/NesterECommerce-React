@@ -1,4 +1,4 @@
-import { Button, Rating, Skeleton } from "@mui/material";
+import { Alert, Button, Rating, Skeleton } from "@mui/material";
 import React, { useContext } from "react";
 import { cartBackend, staticFilesBacked } from "../../configs/axios.js";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -58,11 +58,11 @@ function ProductView({ productData }) {
           { pid, quantity: undefined },
           { headers: { Authorization: `Bearer ${user?.accessToken}` } }
         );
-        notiUser({ message: data?.message ? data.message : "Success" });
+        notiUser({ message: data?.message ? data.message : "Success", success: true });
       } catch (error) {
         notiUser({
           message: error?.response?.data?.error ? error?.response?.data?.error : "Faild while adding to cart",
-          good: false,
+          error: true,
         });
       }
     }
@@ -99,11 +99,14 @@ function ProductView({ productData }) {
           </div>
           <div className="sm b danger">Maximum retail prize : ₹{price}</div>
           <div className="sm dim br">
-            Product added on : {new Date(creationTime).toDateString()} -{" "}
-            <span className={` ${stock <= 5 ? "danger" : ""}`}>
-              {stock > 5 ? "In Stock" : stock > 0 ? `Only ${stock} Left Hurry up!` : "Out of stock"}
-            </span>
+            Product added on : {new Date(creationTime).toDateString()}
+            {stock > 5 && <span className="success"> - In Stock</span>}
           </div>
+          {stock <= 5 && (
+            <Alert severity="error" className="br">
+              {stock > 0 ? `Only ${stock} Left Hurry up!` : "Out of stock"}
+            </Alert>
+          )}
           <div className="buttonCont bbr">
             <Button variant="contained" startIcon={<AddShoppingCartIcon />} color="secondary" onClick={() => addToCart(pid)}>
               Add to cart

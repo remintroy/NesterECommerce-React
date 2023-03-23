@@ -1,8 +1,8 @@
 import { Avatar } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./style.css";
 import { Container } from "@mui/system";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import UserContext from "../../context/UserContext";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -19,6 +19,16 @@ function Settings() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 860);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 860));
+  }, []);
+
+  // eslint-disable-next-line
+  const positon = location.pathname.split("/").filter((e) => {
+    if (e) return e;
+  });
 
   return (
     <div className="Settngs">
@@ -26,7 +36,7 @@ function Settings() {
       <Container>
         <div className="contents">
           <div className="menu">
-            {user && (
+            {user && ((!thisIsPc && location.pathname === "/settings") || thisIsPc) && (
               <>
                 <div className="btn" onClick={() => navigate("/settings/account")}>
                   <div className="icnCont">
@@ -79,11 +89,11 @@ function Settings() {
           <div className="page">
             {user && (
               <>
-                {location.pathname === "/settings/account" && <AccountSettings />}
-                {location.pathname === "/settings/orders" && <OrderSettings />}
-                {location.pathname === "/settings/addresses" && <AddressSettings />}
-                {location.pathname === "/settings/wallets" && <WalletSettings />}
-                {location.pathname === "/settings/security" && <SecuritySettings />}
+                {(positon.at(-1) === "account" || (thisIsPc && positon.at(-1) === "settings")) && <AccountSettings />}
+                {positon.at(-1) === "orders" && <OrderSettings />}
+                {positon.at(-1) === "addresses" && <AddressSettings />}
+                {positon.at(-1) === "wallets" && <WalletSettings />}
+                {positon.at(-1) === "security" && <SecuritySettings />}
               </>
             )}
           </div>

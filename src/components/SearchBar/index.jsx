@@ -7,7 +7,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { searchBackend } from "../../configs/axios.js";
 
 const Suggestions = ({ data, type, show = true, query }) => {
-  if (!show) return "5";
+  if (!show) return "";
+  if (!data) return "";
   return (
     <ul className={`${type === "pc" ? "suggestionPannelPC" : "SearchBar NavBarResults"}`}>
       {data.length > 0 ? (
@@ -46,10 +47,9 @@ function SearchBar({ type, setShow }) {
     const getDataFromServer = async () => {
       try {
         const { data } = await searchBackend.get(`/api/search?q=${query?.trim()}`);
-
-        if (data?.message?.status !== "error")
+        if (data?.status === "good")
           setCache((cache) => {
-            return { ...cache, [query]: data?.message };
+            return { ...cache, [query]: [...data?.message] };
           });
       } catch (error) {
         console.warn(error);
