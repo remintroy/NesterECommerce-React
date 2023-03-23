@@ -2,7 +2,7 @@
      .contents {
          display: grid;
          grid-template-columns: 300px auto;
-         margin-top: 25px;
+         margin-top: 15px;
          gap: 10px;
 
          @media screen and (max-width: 860px) {
@@ -16,6 +16,12 @@
 
              .btn:hover {
                  background-color: rgba(227, 226, 226, 0.476);
+             }
+
+             .btn.on{
+                background-color: rgb(243, 248, 255);
+                border-color:rgba(0, 140, 255, 0.415);
+                // box-shadow: 0 0 10px 15px rgba(128, 128, 128, 0.08);
              }
 
              .btn {
@@ -50,14 +56,14 @@
 
          .page {
              overflow: hidden;
-             border-radius: 5px;
+             border-radius: 3px;
              position: relative;
-             padding: 20px;
-             border: 1px solid var(--borderCommon);
+            //  padding: 20px;
 
              @media screen and (max-width: 860px) {
                  border: none;
                  padding: 0;
+                 margin-top: 0;
              }
          }
      }

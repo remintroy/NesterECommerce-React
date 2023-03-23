@@ -35,10 +35,15 @@ function Settings() {
       <Header title="Settings" path="Nester > Settings" />
       <Container>
         <div className="contents">
-          <div className="menu">
-            {user && ((!thisIsPc && location.pathname === "/settings") || thisIsPc) && (
+          {user && ((!thisIsPc && location.pathname === "/settings") || thisIsPc) && (
+            <div className="menu">
               <>
-                <div className="btn" onClick={() => navigate("/settings/account")}>
+                <div
+                  className={`btn ${
+                    positon.at(-1) === "account" || (thisIsPc && positon.at(-1) === "settings") ? "on" : ""
+                  }`}
+                  onClick={() => navigate("/settings/account")}
+                >
                   <div className="icnCont">
                     <Avatar className="Avathar" alt={user.email} src={user.photoURL} />
                   </div>
@@ -47,7 +52,10 @@ function Settings() {
                     <div className="tail">View and Edit Your Profile</div>
                   </div>
                 </div>
-                <div className="btn" onClick={() => navigate("/settings/orders")}>
+                <div
+                  className={`btn ${positon.at(-1) === "orders" ? "on" : ""}`}
+                  onClick={() => navigate("/settings/orders")}
+                >
                   <div className="icnCont">
                     <WorkHistoryIcon />
                   </div>
@@ -56,7 +64,10 @@ function Settings() {
                     <div className="tail">Status, return, cancellation...</div>
                   </div>
                 </div>
-                <div className="btn" onClick={() => navigate("/settings/addresses")}>
+                <div
+                  className={`btn ${positon.at(-1) === "addresses" ? "on" : ""}`}
+                  onClick={() => navigate("/settings/addresses")}
+                >
                   <div className="icnCont">
                     <AlternateEmailIcon />
                   </div>
@@ -65,7 +76,10 @@ function Settings() {
                     <div className="tail">Add, edit, remove...</div>
                   </div>
                 </div>
-                <div className="btn" onClick={() => navigate("/settings/wallets")}>
+                <div
+                  className={`btn ${positon.at(-1) === "wallets" ? "on" : ""}`}
+                  onClick={() => navigate("/settings/wallets")}
+                >
                   <div className="icnCont">
                     <AccountBalanceWalletIcon />
                   </div>
@@ -74,7 +88,10 @@ function Settings() {
                     <div className="tail">Get in touch with wallet.</div>
                   </div>
                 </div>
-                <div className="btn" onClick={() => navigate("/settings/security")}>
+                <div
+                  className={`btn ${positon.at(-1) === "security" ? "on" : ""}`}
+                  onClick={() => navigate("/settings/security")}
+                >
                   <div className="icnCont">
                     <SecurityIcon />
                   </div>
@@ -84,8 +101,8 @@ function Settings() {
                   </div>
                 </div>
               </>
-            )}
-          </div>
+            </div>
+          )}
           <div className="page">
             {user && (
               <>

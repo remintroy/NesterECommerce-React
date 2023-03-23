@@ -23,6 +23,17 @@
             height: 40px;
             width: 100%;
         }
+
+        .action{
+            display:flex;
+            align-items: center;
+            gap: 10px;
+
+            .title{
+                font-size: larger;
+                font-weight: bold;
+            }
+        }
     }
 
     .right {
@@ -47,6 +58,10 @@
             cursor: pointer;
         }
     }
+}
+
+.NavBar.MB{
+    grid-template-columns: auto 150px;
 }
 
 .NavBar.shadow {
@@ -94,7 +109,7 @@
     bottom: 0;
     padding: 55px 0 70px 0;
     overflow-x: hidden;
-    background-color: var(--themeBg);
+    background-color: var(--themeBg); 
 }
 
 .bottomNav {

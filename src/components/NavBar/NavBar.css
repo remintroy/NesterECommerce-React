@@ -23,6 +23,15 @@
   height: 40px;
   width: 100%;
 }
+.NavBar .logo .action {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.NavBar .logo .action .title {
+  font-size: larger;
+  font-weight: bold;
+}
 .NavBar .right {
   display: flex;
   align-items: center;
@@ -40,6 +49,10 @@
 }
 .NavBar .right svg {
   cursor: pointer;
+}
+
+.NavBar.MB {
+  grid-template-columns: auto 150px;
 }
 
 .NavBar.shadow {

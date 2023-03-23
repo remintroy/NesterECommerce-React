@@ -9,8 +9,9 @@ function Shop() {
     <div className="Shop">
       <Header title="Find your favorate products" path="Nester > Shop" />
       <Container>
-        <iframe
-        style={{borderRadius:"5px"}}
+        <CategoryChip />
+        {/* <iframe
+          style={{ borderRadius: "5px" }}
           width="100%"
           height="635"
           src="https://www.youtube.com/embed/tdW0Gv9WDP4?controls=0&amp;start=1"
@@ -18,8 +19,7 @@ function Shop() {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
-        ></iframe>
-        <CategoryChip />
+        ></iframe> */} 
       </Container>
     </div>
   );

@@ -6,7 +6,7 @@
     overflow: hidden;
     gap: 20px;
 
-    @media screen and (max-width:700px) {
+    @media screen and (max-width: 700px) {
         grid-template-columns: 1fr;
         padding: 0;
         background-color: transparent;
@@ -18,7 +18,7 @@
         align-items: center;
         object-fit: scale-down;
 
-        @media screen and (max-width:700px) {
+        @media screen and (max-width: 700px) {
             padding: 0;
         }
 
@@ -46,7 +46,7 @@
             overflow: hidden;
             border-radius: 5px;
 
-            @media screen and (max-width:700px) {
+            @media screen and (max-width: 700px) {
                 width: 100%;
                 height: auto;
                 min-height: 400px;
@@ -57,7 +57,6 @@
                 height: 100%;
                 object-fit: scale-down;
             }
-
         }
     }
 
@@ -67,7 +66,7 @@
         padding-top: 0;
         border-radius: 5px;
 
-        @media screen and (max-width:700px) {
+        @media screen and (max-width: 700px) {
             padding: 0;
         }
 
@@ -79,7 +78,7 @@
             display: flex;
             gap: 10px;
 
-            @media screen and (max-width:870px) {
+            @media screen and (max-width: 870px) {
                 flex-direction: column;
             }
 

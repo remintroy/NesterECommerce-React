@@ -14,10 +14,12 @@ import NotiUserContext from "./context/NotiUserContext";
 import NotiUser from "./components/NotiUser/NotiUser";
 import Shop from "./Pages/Shop";
 import Settings from "./Pages/Settings";
+import NavBarContext from "./context/NavBarContext";
 
 function App() {
   const [user, setUser] = useState(null);
   const [notiData, setNotiData] = useState({ message: "WLCM_5T", error: false, action: "Ok", success: false });
+  const [InNav, setInNav] = useState(null);
   // const [theme, setTheme] = useState("dark");
 
   const refreshUser = async () => {
@@ -35,7 +37,7 @@ function App() {
         const { data } = await authBackend.get("/user_data");
         setUser(data?.email ? data : null);
       } catch (error) {
-        notiUser({ message: error, error: true });
+        // notiUser({ message: error, error: true });
       }
     })();
   }, []);
@@ -69,30 +71,34 @@ function App() {
     });
   };
 
+  // console.log("app rendered")
+
   return (
     <UserContext.Provider value={{ user, setUser, refreshUser }}>
       <NotiUserContext.Provider value={{ notiUser, notiData, setNotiData }}>
         <CssVarsProvider>
-          <NavBar>
-            <Routes>
-              {[
-                "/settings",
-                "/settings/account",
-                "/settings/orders",
-                "/settings/addresses",
-                "/settings/wallets",
-                "/settings/security",
-              ].map((path, index) => (
-                <Route path={path} element={<Settings />} key={index} />
-              ))}
-              <Route path="/" element={<Homepage />} />
-              <Route path="/product/:pid" element={<ProductView />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </NavBar>
+          <NavBarContext.Provider value={{ InNav, setInNav }}>
+            <NavBar inNav={InNav} setInNav={setInNav}>
+              <Routes>
+                {[
+                  "/settings",
+                  "/settings/account",
+                  "/settings/orders",
+                  "/settings/addresses",
+                  "/settings/wallets",
+                  "/settings/security",
+                ].map((path, index) => (
+                  <Route path={path} element={<Settings />} key={index} />
+                ))}
+                <Route path="/" element={<Homepage />} />
+                <Route path="/product/:pid" element={<ProductView />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </NavBar>
+          </NavBarContext.Provider>
           <NotiUser />
         </CssVarsProvider>
       </NotiUserContext.Provider>

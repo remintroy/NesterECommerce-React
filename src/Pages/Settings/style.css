@@ -1,7 +1,7 @@
 .Settngs .contents {
   display: grid;
   grid-template-columns: 300px auto;
-  margin-top: 25px;
+  margin-top: 15px;
   gap: 10px;
 }
 @media screen and (max-width: 860px) {
@@ -16,6 +16,10 @@
 }
 .Settngs .contents .menu .btn:hover {
   background-color: rgba(227, 226, 226, 0.476);
+}
+.Settngs .contents .menu .btn.on {
+  background-color: rgb(243, 248, 255);
+  border-color: rgba(0, 140, 255, 0.415);
 }
 .Settngs .contents .menu .btn {
   display: grid;
@@ -42,14 +46,13 @@
 }
 .Settngs .contents .page {
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 3px;
   position: relative;
-  padding: 20px;
-  border: 1px solid var(--borderCommon);
 }
 @media screen and (max-width: 860px) {
   .Settngs .contents .page {
     border: none;
     padding: 0;
+    margin-top: 0;
   }
 }/*# sourceMappingURL=style.css.map */

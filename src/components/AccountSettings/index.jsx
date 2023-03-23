@@ -1,6 +1,6 @@
 import "./style.css";
 import UserContext from "../../context/UserContext";
-import NotiUserContext from "../../context/NotiUserContext";
+// import NotiUserContext from "../../context/NotiUserContext";
 import { Alert, Box, Button, CircularProgress, IconButton, Modal, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -8,10 +8,11 @@ import { storageConfig } from "../../configs/firebase";
 import { authBackend } from "../../configs/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import NavBarContext from "../../context/NavBarContext";
 
 function AccountSettings() {
   const { user, refreshUser } = useContext(UserContext);
-  const { notiUser } = useContext(NotiUserContext);
+  // const { notiUser } = useContext(NotiUserContext);
   const [imgFile, setImgFile] = useState(null);
   const input = useRef(null);
   const location = useLocation();
@@ -24,6 +25,14 @@ function AccountSettings() {
     success: false,
     message: "This will change permenantly",
   });
+  const { setInNav } = useContext(NavBarContext);
+
+  useEffect(() => {
+    setInNav({ message: "Account Settings", path: "/settings" });
+    return () => {
+      setInNav(null);
+    };
+  }, [setInNav]);
 
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
@@ -101,7 +110,8 @@ function AccountSettings() {
       });
       refreshUser();
       setShowStatusEdit({ message: `${type} updated successfully`, success: true });
-      notiUser({ message: "Updated successfully", success: true });
+      // TODO : update the status to snackbar
+      // notiUser({ message: "Updated successfully", success: true });
       setLoading(false);
     } catch (error) {
       setShowStatusEdit({
@@ -126,7 +136,6 @@ function AccountSettings() {
 
   return (
     <div className="AccountSettings">
-      <h2 style={{ marginTop: "0" }}>Account settings</h2>
       <div className="listCont">
         <div className="list">
           <img src={user.photoURL} alt={user.email} />

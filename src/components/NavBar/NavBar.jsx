@@ -11,9 +11,11 @@ import UserContext from "../../context/UserContext";
 import HomeIcon from "@mui/icons-material/Home";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import SettingsIcon from "@mui/icons-material/Settings";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function NavBar(props) {
-  const [showSuggestions, setshowSuggestions] = useState(false);
+  const [showSuggestions, setshowSuggestionsState] = useState(false);
+  const [currentPath, setcurrentPath] = useState(null);
   const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 766);
   const [isScrolled, setIsScorlled] = useState(false);
   const [cart, setCart] = useState(0);
@@ -21,6 +23,25 @@ function NavBar(props) {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const location = useLocation();
+
+  const setshowSuggestions = (state) => {
+    if (state) {
+      setcurrentPath(location.pathname);
+      navigate(`${location.pathname}?search=show`);
+    } else {
+      setcurrentPath(null);
+      navigate(currentPath ? currentPath : "/");
+    }
+  };
+
+  useEffect(() => {
+    setcurrentPath(location.pathname);
+    if (location.search?.split("?")[1]?.split("&").includes("search=show")) {
+      setshowSuggestionsState(true);
+    } else {
+      setshowSuggestionsState(false);
+    }
+  }, [location]);
 
   useEffect(() => {
     window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 766));
@@ -35,19 +56,37 @@ function NavBar(props) {
   return (
     <>
       {!thisIsPc && (
-        <div className={`NavBar ${isScrolled ? "shadow" : ""}`}>
+        <div className={`NavBar MB ${isScrolled ? "shadow" : ""} `}>
           {!showSuggestions && (
             <>
               <div className="logo">
-                <Link to={"/"}>
-                  <img src="/logo/logo.png" alt="Logo" />
-                </Link>
+                {(!props?.inNav || !props?.inNav?.message) && (
+                  <Link to={"/"}>
+                    <img src="/logo/logo.png" alt="Logo" />
+                  </Link>
+                )}
+                {props?.inNav && props?.inNav?.message && (
+                  <div className="action">
+                    <IconButton
+                      aria-label="Back"
+                      onClick={() => {
+                        navigate(`${props?.inNav?.path ? props?.inNav?.path : "/"}`);
+                        props?.setInNav(null);
+                      }}
+                    >
+                      <ArrowBackIcon />
+                    </IconButton>
+                    <div className="title">{props?.inNav?.message}</div>
+                  </div>
+                )}
               </div>
               <div className="right">
                 <IconButton aria-label="Search" size="large" onClick={() => setshowSuggestions(!showSuggestions)}>
                   <SearchIcon />
                 </IconButton>
-                {user && <Avatar className="Avathar" onClick={() => navigate("/settings")} alt={user.email} src={user.photoURL} />}
+                {user && (
+                  <Avatar className="Avathar" onClick={() => navigate("/settings")} alt={user.email} src={user.photoURL} />
+                )}
                 {!user && (
                   <Button variant="outlined" onClick={() => navigate("/signin")}>
                     Login
@@ -61,7 +100,7 @@ function NavBar(props) {
       )}
 
       {thisIsPc && (
-        <div className={`NavBar PC ${isScrolled ? "shadow" : ""}`}>
+        <div className={`NavBar PC ${isScrolled ? "shadow" : ""} `}>
           <div className="left">
             <div className="logo">
               <Link to={"/"}>
@@ -86,7 +125,9 @@ function NavBar(props) {
             >
               <LocalGroceryStoreIcon />
             </Badge>
-            {user && <Avatar className="Avathar" onClick={() => navigate("/settings")} alt={user.email} src={user.photoURL} />}
+            {user && (
+              <Avatar className="Avathar" onClick={() => navigate("/settings")} alt={user.email} src={user.photoURL} />
+            )}
             {!user && (
               <Button variant="outlined" onClick={() => navigate("/signin")}>
                 Login
