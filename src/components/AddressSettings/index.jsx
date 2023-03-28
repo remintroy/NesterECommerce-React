@@ -1,16 +1,17 @@
-import { useContext, useEffect } from "react";
-import NavBarContext from "../../context/NavBarContext";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setNavBarData } from "../../redux/navBarSlice";
 import "./style.css";
 
 const AddressSettings = () => {
-  const { setInNav } = useContext(NavBarContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setInNav({ message: "Addresss Settings", path: "/settings" });
+    dispatch(setNavBarData({ message: "Addresss Settings", path: "/settings" }));
     return () => {
-      setInNav(null);
+      dispatch(setNavBarData({ message: null, path: null }));
     };
-  }, [setInNav]);
+  }, [dispatch]);
 
   return <div className="AddressSettings">Address Settings</div>;
 };

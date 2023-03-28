@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./SignIn.css";
 import Button from "@mui/material/Button";
 import googleIcn from "../../images/google.png";
@@ -7,15 +7,16 @@ import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
 import { authConfig } from "../../configs/firebase";
-import UserContext from "../../context/UserContext";
 import { authBackend } from "../../configs/axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [statusDisp, setStatusDisp] = useState({ show: false, message: "", error: false });
 
-  const { setUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const loginUser = async (type) => {
     setStatusDisp({ error: false, message: "Loading...", show: true });
@@ -31,7 +32,7 @@ function SignIn() {
       const idToken = await user.getIdToken();
       const { data } = await authBackend.post("/signin", { idToken });
       // saving tokens
-      setUser(data);
+      dispatch(setUser(data));
       setStatusDisp({ show: true, message: "Login success" });
       //..
     } catch (error) {

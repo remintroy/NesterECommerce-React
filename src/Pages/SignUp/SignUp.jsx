@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 import { Container } from "@mui/system";
 import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 import { authConfig } from "../../configs/firebase";
-import UserContext from "../../context/UserContext";
 import { authBackend } from "../../configs/axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const SignUp = () => {
   const [confirm, setConfirm] = useState("");
   const [statusDisp, setStatusDisp] = useState({ show: false, message: "", error: false });
 
-  const { setUser } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const loginUser = async (type) => {
     setStatusDisp({ error: false, message: "Loading...", show: true });
@@ -41,7 +42,7 @@ const SignUp = () => {
       const idToken = await user.getIdToken();
       const { data } = await authBackend.post("/signin", { idToken });
       // saving tokens
-      setUser(data);
+      dispatch(setUser(data));
       setStatusDisp({ show: true, message: "Login success" });
       //..
     } catch (error) {
@@ -55,7 +56,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Header title="Welcome Back to Nester" path="Nester > SignIn : Existing user login" />
+      <Header title="Welcome Back to Nester" path="Nester > SignIn : New user login" />
       <Container maxWidth="lg">
         <div className="SignIn">
           <div className="container">

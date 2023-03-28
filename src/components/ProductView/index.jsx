@@ -1,12 +1,12 @@
 import { Alert, Button, Rating, Skeleton } from "@mui/material";
-import React, { useContext } from "react";
 import { cartBackend, staticFilesBacked } from "../../configs/axios.js";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./ProductView.css";
-import NotiUserContext from "../../context/NotiUserContext.jsx";
-import UserContext from "../../context/UserContext.jsx";
 import SizeButton from "../SizeButton/SizeButton.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { pushNoti } from "../../redux/notiSlice.js";
 
+// skelton for prouduct detail view
 const SkeltonLoding = () => {
   return (
     <div className="ProductViewComponent">
@@ -45,10 +45,13 @@ const SkeltonLoding = () => {
   );
 };
 
-function ProductView({ productData }) {
-  const { notiUser } = useContext(NotiUserContext);
-  const { user } = useContext(UserContext);
+// add to cart and buy now buttons
+const ActionButtons = ({ data }) => {
+  const dispatch = useDispatch();
+  const { price, offer, pid } = data;
+  const user = useSelector((state) => state.user.data);
 
+  // adds product to cart
   const addToCart = async (pid) => {
     if (!user) {
     } else {
@@ -59,16 +62,32 @@ function ProductView({ productData }) {
           { pid, quantity: undefined },
           { headers: { Authorization: `Bearer ${user?.accessToken}` } }
         );
-        notiUser({ message: data?.message ? data.message : "Success", success: true });
+        dispatch(pushNoti({ message: data?.message ? data.message : "Success", success: true }));
       } catch (error) {
-        notiUser({
-          message: error?.response?.data?.error ? error?.response?.data?.error : "Faild while adding to cart",
-          error: true,
-        });
+        dispatch(
+          pushNoti({
+            message: error?.response?.data?.error ? error?.response?.data?.error : "Faild while adding to cart",
+            error: true,
+          })
+        );
       }
     }
   };
 
+  // buttons
+  return (
+    <div className="buttonCont bbr">
+      <Button variant="contained" startIcon={<AddShoppingCartIcon />} color="warning" onClick={() => addToCart(pid)}>
+        Add to cart
+      </Button>
+      <Button variant="contained" color="success">
+        ₹{Number(price) - Number(offer || 0)} : Buy Now
+      </Button>
+    </div>
+  );
+};
+
+function ProductView({ productData }) {
   const ProductViewPC = () => {
     if (!productData?.title) return <SkeltonLoding />;
 
@@ -109,14 +128,7 @@ function ProductView({ productData }) {
           <div className="br flex">
             <SizeButton />
           </div>
-          <div className="buttonCont bbr">
-            <Button variant="outlined" startIcon={<AddShoppingCartIcon />} color="secondary" onClick={() => addToCart(pid)}>
-              Add to cart
-            </Button>
-            <Button variant="outlined" color="success">
-              ₹{Number(price) - Number(offer || 0)} : Buy Now
-            </Button>
-          </div>
+          <ActionButtons data={productData} />
           <div className="b bbr">Product description</div>
           <div className="sm dim br">
             Product added on : {new Date(creationTime).toDateString()}

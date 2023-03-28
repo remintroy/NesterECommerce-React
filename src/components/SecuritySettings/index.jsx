@@ -1,16 +1,17 @@
-import { useContext, useEffect } from "react";
-import NavBarContext from "../../context/NavBarContext"; 
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setNavBarData } from "../../redux/navBarSlice";
 import "./SecuritySettings.css";
 
 const SecuritySettings = () => {
-  const { setInNav } = useContext(NavBarContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setInNav({ message: "Security Settings", path: "/settings" });
+    dispatch(setNavBarData({ message: "Security Settings", path: "/settings" }));
     return () => {
-      setInNav(null);
+      dispatch(setNavBarData({ message: null, path: null }));
     };
-  }, [setInNav]);
+  }, [dispatch]);
 
   return <div></div>;
 };

@@ -1,9 +1,8 @@
 import { Avatar } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 import { Container } from "@mui/system";
 import Header from "../../components/Header/Header";
-import UserContext from "../../context/UserContext";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
@@ -14,9 +13,10 @@ import OrderSettings from "../../components/OrderSettings";
 import AddressSettings from "../../components/AddressSettings";
 import WalletSettings from "../../components/WalletSettings";
 import SecuritySettings from "../../components/SecuritySettings";
+import { useSelector } from "react-redux";
 
 function Settings() {
-  const { user } = useContext(UserContext);
+  const user = useSelector((state) => state.user.data);
   const navigate = useNavigate();
   const location = useLocation();
   const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 860);

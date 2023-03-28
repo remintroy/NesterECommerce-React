@@ -1,17 +1,17 @@
-import { useContext, useEffect } from "react";
-import NavBarContext from "../../context/NavBarContext";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setNavBarData } from "../../redux/navBarSlice";
 import "./WalletSettings.css";
 
 const WalletSettings = () => {
-
-  const { setInNav } = useContext(NavBarContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setInNav({ message: "Wallet Settings", path: "/settings" });
+    dispatch(setNavBarData({ message: "Wallet Settings", path: "/settings" }));
     return () => {
-      setInNav(null);
+      dispatch(setNavBarData({ message: null, path: null }));
     };
-  }, [setInNav]);
+  }, [dispatch]);
 
   return <div>Wallet settigns</div>;
 };

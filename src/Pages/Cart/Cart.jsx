@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../../context/UserContext";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./Cart.css";
 
 const Cart = () => {
-  const { user } = useContext(UserContext);
-  const [cart, setCart] = useState(null);
+  const user = useSelector((state) => state.user.data);
+  // const [cart, setCart] = useState(null);
 
   useEffect(() => {
     console.log(user);

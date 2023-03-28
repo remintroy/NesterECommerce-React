@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./NavBar.css";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,11 +7,12 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import { Avatar, Badge } from "@mui/material";
-import UserContext from "../../context/UserContext";
 import HomeIcon from "@mui/icons-material/Home";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useDispatch, useSelector } from "react-redux";
+import { setNavBarData } from "../../redux/navBarSlice";
 
 function NavBar(props) {
   const [showSuggestions, setshowSuggestionsState] = useState(false);
@@ -21,9 +22,12 @@ function NavBar(props) {
   const [cart, setCart] = useState(0);
   const contentRef = useRef(null);
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+  const inNav = useSelector((state) => state.navBar.data);
 
+  // eslint-disable-next-line
   const positon = location.pathname.split("/").filter((e) => {
     if (e) return e;
   });
@@ -57,8 +61,6 @@ function NavBar(props) {
     }
   }, [contentRef, isScrolled]);
 
-  console.log(positon);
-
   return (
     <>
       {!thisIsPc && (
@@ -66,23 +68,23 @@ function NavBar(props) {
           {!showSuggestions && (
             <>
               <div className="logo">
-                {(!props?.inNav || !props?.inNav?.message) && (
+                {(!inNav || !inNav?.message) && (
                   <Link to={"/"}>
                     <img src="/logo/logo.png" alt="Logo" />
                   </Link>
                 )}
-                {props?.inNav && props?.inNav?.message && (
+                {inNav && inNav?.message && (
                   <div className="action">
                     <IconButton
                       aria-label="Back"
                       onClick={() => {
-                        navigate(`${props?.inNav?.path ? props?.inNav?.path : "/"}`);
-                        props?.setInNav(null);
+                        navigate(`${inNav?.path ? inNav?.path : "/"}`);
+                        dispatch(setNavBarData({ path: null, message: null }));
                       }}
                     >
                       <ArrowBackIcon />
                     </IconButton>
-                    <div className="title">{props?.inNav?.message}</div>
+                    <div className="title">{inNav?.message}</div>
                   </div>
                 )}
               </div>

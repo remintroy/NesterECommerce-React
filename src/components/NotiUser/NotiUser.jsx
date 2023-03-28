@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NotiUser.css";
 import { Alert, Grow, Snackbar } from "@mui/material";
-import NotiUserContext from "../../context/NotiUserContext";
+import { useSelector } from "react-redux";
 
 const NotiUser = () => {
-  const { notiData } = useContext(NotiUserContext);
+  const notiData = useSelector((state) => state.noti.data);
   const [show, setShow] = useState(false);
 
   function TransitionLeft(props) {
@@ -16,7 +16,6 @@ const NotiUser = () => {
   }, [notiData]);
 
   const hanldeClose = (event, reason) => {
-    // console.log("dd", event, reason);
     if (reason === "timeout") setShow(false);
   };
 
@@ -24,6 +23,7 @@ const NotiUser = () => {
     <>
       {show && notiData?.message !== "WLCM_5T" && (
         <Snackbar
+          anchorOrigin={{ open: false, vertical: "bottom", horizontal: "left" }}
           sx={{ bottom: { xs: 55, md: 20 } }}
           open={show}
           autoHideDuration={6000}
@@ -33,7 +33,12 @@ const NotiUser = () => {
           TransitionComponent={TransitionLeft}
         >
           {(notiData?.error || notiData?.success) && (
-            <Alert severity={notiData?.error ? "error" : "success"} sx={{ width: "100%" }}>
+            <Alert
+              severity={notiData?.error ? "error" : "success"}
+              style={{ backgroundColor: "white", border: "1px solid var(--borderCommon)" }}
+              // variant="outlined"
+              sx={{ width: "100%" }}
+            >
               {notiData?.message}
             </Alert>
           )}
