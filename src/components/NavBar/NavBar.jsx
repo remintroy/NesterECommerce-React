@@ -24,6 +24,10 @@ function NavBar(props) {
   const { user } = useContext(UserContext);
   const location = useLocation();
 
+  const positon = location.pathname.split("/").filter((e) => {
+    if (e) return e;
+  });
+
   const setshowSuggestions = (state) => {
     if (state) {
       setcurrentPath(location.pathname);
@@ -52,6 +56,8 @@ function NavBar(props) {
       });
     }
   }, [contentRef, isScrolled]);
+
+  console.log(positon);
 
   return (
     <>
@@ -146,16 +152,16 @@ function NavBar(props) {
           <div className={`iconCont ${location.pathname === "/" ? "on" : ""}`} onClick={() => navigate("/")}>
             <HomeIcon color={`${location.pathname !== "/" ? "action" : ""}`} />
           </div>
-          <div className={`iconCont ${location.pathname === "/shop" ? "on" : ""}`} onClick={() => navigate("/shop")}>
-            <ShoppingBagIcon color={`${location.pathname !== "/shop" ? "action" : ""}`} />
+          <div className={`iconCont ${positon[0] === "shop" ? "on" : ""}`} onClick={() => navigate("/shop")}>
+            <ShoppingBagIcon color={`${positon[0] !== "shop" ? "action" : ""}`} />
           </div>
-          <div className={`iconCont ${location.pathname === "/cart" ? "on" : ""}`} onClick={() => navigate("/cart")}>
+          <div className={`iconCont ${positon[0] === "cart" ? "on" : ""}`} onClick={() => navigate("/cart")}>
             <Badge badgeContent={cart} color="primary">
-              <LocalGroceryStoreIcon color={`${location.pathname !== "/cart" ? "action" : ""}`} />
+              <LocalGroceryStoreIcon color={`${positon[0] !== "cart" ? "action" : ""}`} />
             </Badge>
           </div>
-          <div className={`iconCont ${location.pathname === "/settings" ? "on" : ""}`} onClick={() => navigate("/settings")}>
-            <SettingsIcon color={`${location.pathname !== "/settings" ? "action" : ""}`} />
+          <div className={`iconCont ${positon[0] === "settings" ? "on" : ""}`} onClick={() => navigate("/settings")}>
+            <SettingsIcon color={`${positon[0] !== "settings" ? "action" : ""}`} />
           </div>
         </div>
       )}

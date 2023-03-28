@@ -1,1 +1,12 @@
-/*# sourceMappingURL=OrderSettings.css.map */
+.OrderSettings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+.OrderSettings .ordersList {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid var(--borderCommon);
+}/*# sourceMappingURL=OrderSettings.css.map */

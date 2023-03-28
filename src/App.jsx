@@ -15,6 +15,7 @@ import NotiUser from "./components/NotiUser/NotiUser";
 import Shop from "./Pages/Shop";
 import Settings from "./Pages/Settings";
 import NavBarContext from "./context/NavBarContext";
+import SignUp from "./Pages/SignUp/SignUp";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -93,6 +94,7 @@ function App() {
                 <Route path="/" element={<Homepage />} />
                 <Route path="/product/:pid" element={<ProductView />} />
                 <Route path="/signin" element={<SignIn />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="*" element={<NotFound />} />

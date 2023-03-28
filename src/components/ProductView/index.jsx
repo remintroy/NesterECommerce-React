@@ -5,6 +5,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./ProductView.css";
 import NotiUserContext from "../../context/NotiUserContext.jsx";
 import UserContext from "../../context/UserContext.jsx";
+import SizeButton from "../SizeButton/SizeButton.jsx";
 
 const SkeltonLoding = () => {
   return (
@@ -97,25 +98,30 @@ function ProductView({ productData }) {
             Selling Price: ₹{Number(price) - Number(offer || 0)}
             {offer > 0 && <span className="offer"> {offer}Rs OFF</span>}
           </div>
-          <div className="sm b danger">Maximum retail prize : ₹{price}</div>
-          <div className="sm dim br">
-            Product added on : {new Date(creationTime).toDateString()}
-            {stock > 5 && <span className="success"> - In Stock</span>}
-          </div>
+          <div className="sm b danger">MRP : ₹{price}</div>
           {stock <= 5 && (
             <Alert severity="error" className="br">
               {stock > 0 ? `Only ${stock} Left Hurry up!` : "Out of stock"}
             </Alert>
           )}
+          <br />
+          <div>Choose your size</div>
+          <div className="br flex">
+            <SizeButton />
+          </div>
           <div className="buttonCont bbr">
-            <Button variant="contained" startIcon={<AddShoppingCartIcon />} color="secondary" onClick={() => addToCart(pid)}>
+            <Button variant="outlined" startIcon={<AddShoppingCartIcon />} color="secondary" onClick={() => addToCart(pid)}>
               Add to cart
             </Button>
-            <Button variant="contained" color="success">
-              Buy now
+            <Button variant="outlined" color="success">
+              ₹{Number(price) - Number(offer || 0)} : Buy Now
             </Button>
           </div>
           <div className="b bbr">Product description</div>
+          <div className="sm dim br">
+            Product added on : {new Date(creationTime).toDateString()}
+            {stock > 5 && <span className="success"> - In Stock</span>}
+          </div>
           <div className="br">{description}</div>
         </div>
       </div>

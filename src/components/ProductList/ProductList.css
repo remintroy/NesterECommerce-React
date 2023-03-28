@@ -13,6 +13,10 @@
   }
 }
 
+.productUl.singleList {
+  grid-template-columns: 100% !important;
+}
+
 .ProductList {
   box-sizing: border-box;
   padding: 10px;
@@ -48,6 +52,9 @@
 .ProductList .dataCont {
   width: 100%;
   overflow: hidden;
+}
+.ProductList .dataCont .A {
+  text-transform: uppercase;
 }
 .ProductList .dataCont .titleTxt {
   padding: 0;

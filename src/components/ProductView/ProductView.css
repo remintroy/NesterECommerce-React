@@ -87,7 +87,6 @@
 .ProductViewComponent .right .buttonCont button {
   width: 100%;
   padding: 15px;
-  background-color: rgb(58, 58, 58);
 }
 .ProductViewComponent .right .price {
   display: flex;

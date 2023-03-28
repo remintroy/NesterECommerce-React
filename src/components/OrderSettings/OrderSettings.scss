@@ -1,1 +1,14 @@
- 
+ .OrderSettings {
+
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     box-sizing: border-box;
+
+     .ordersList {
+         width: 100%;
+         padding: 10px;
+         box-sizing: border-box;
+         border: 1px solid var(--borderCommon);
+     }
+ }

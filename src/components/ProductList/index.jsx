@@ -5,10 +5,10 @@ import Rating from "@mui/material/Rating";
 import { Skeleton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function ProductList({ data }) {
+function ProductList({ data, singleList }) {
   const navigate = useNavigate();
 
-  const skeltionLoading = () => {
+  const SkeltionLoading = () => {
     return (
       <div className="ProductList">
         <div className="imgCont">
@@ -28,8 +28,9 @@ function ProductList({ data }) {
   };
 
   const ProductListComponent = ({ data }) => {
-    if (!data?.PID) return skeltionLoading();
+    if (!data?.PID) return <SkeltionLoading />;
 
+    // TODO: Change PID to pid
     const { PID, title, category, stock, offer, price, rating } = data;
 
     return (
@@ -39,9 +40,9 @@ function ProductList({ data }) {
         </div>
         <div className="dataCont">
           <div className="titleTxt">{title}</div>
-          <div className="category">
+          <div className="category A">
             <small>
-              <b>{category}</b>
+              <b className="A">{category}</b>
             </small>
           </div>
           <div className="price">
@@ -63,7 +64,7 @@ function ProductList({ data }) {
   };
 
   const ProductListUlComponent = ({ children }) => {
-    return <div className="productUl">{children}</div>;
+    return <div className={`productUl ${singleList ? "singleList" : ""}`}>{children}</div>;
   };
 
   return (

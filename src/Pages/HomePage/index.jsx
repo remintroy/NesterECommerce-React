@@ -25,8 +25,8 @@ function Homepage() {
   return (
     <>
       <Header title={"Explore and find your favorate products"} path={"Nester > Home"} />
-      <Container>
-        <h3>#Top 6</h3>
+      <Container> 
+        <h3>Explore the Top 6</h3>
         <ProductList data={productData.slice(0, 6)}></ProductList>
       </Container>
     </>
