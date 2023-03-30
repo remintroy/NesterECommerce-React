@@ -126,9 +126,9 @@ function NavBar(props) {
             <Badge
               className="cart"
               onClick={() => {
-                setCart((pre) => pre + 1);
+                navigate("/cart")
               }}
-              badgeContent={cart}
+              badgeContent={2}
               color="primary"
             >
               <LocalGroceryStoreIcon />

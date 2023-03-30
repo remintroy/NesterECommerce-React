@@ -27,7 +27,7 @@ function SignIn() {
           ? await signInWithEmailAndPassword(authConfig, email, password)
           : await signInWithPopup(authConfig, new GoogleAuthProvider());
       // sends idToken from firebase to server for login
-      console.log(response);
+      // console.log(response);
       const { user } = response;
       const idToken = await user.getIdToken();
       const { data } = await authBackend.post("/signin", { idToken });

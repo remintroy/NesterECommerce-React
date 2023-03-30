@@ -1,5 +1,6 @@
 import { Button, Chip, Skeleton, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { staticFilesBacked } from "../../configs/axios";
 import "./style.css";
 
@@ -27,6 +28,8 @@ const SkeletonLoader = ({ thisIsPc }) => {
 };
 
 const OrderList = ({ thisIsPc, data }) => {
+  const navigate = useNavigate();
+
   if (!data?.PID) return <SkeletonLoader thisIsPc={thisIsPc} />;
   //   if (true) return <SkeletonLoader thisIsPc={thisIsPc} />;
 
@@ -45,21 +48,27 @@ const OrderList = ({ thisIsPc, data }) => {
             <span>{category}</span>
           </Tooltip>
         </div>
-        <div className="price b">
-          {Number(price) - Number(offer || 0)} Rs x {quantity}Pcs
-          {offer > 0 && <span className="offer b"> -{offer}Rs Each</span>}
-        </div>
-        <div className="sm">Total : {total} Rs</div>
-        <div className="b sm A">
-          <Tooltip title="Current status of order" arrow>
-            <span>
-              <Chip label={`Status : ${status}`} variant="outlined" />{" "}
-            </span>
-          </Tooltip>
+        <div className="flex-btw">
+          <div className="">
+            <div className="price b">
+              {Number(price) - Number(offer || 0)} Rs x {quantity}Pcs
+              {/* {offer > 0 && <span className="offer b"> -{offer}Rs Each</span>} */}
+            </div>
+            <div className="sm">Total : {total} Rs</div>
+          </div>
+          <div className="b sm A">
+            <Tooltip title="Current status of order" arrow>
+              <span>
+                <Chip label={`${status}`} variant="outlined" />{" "}
+              </span>
+            </Tooltip>
+          </div>
         </div>
         <div className="btnCont">
-          <Button variant="contained">View Product</Button>
-          <Button variant="contained">Action</Button>
+          <Button variant="outlined" onClick={() => navigate(`/product/${PID}`)}>
+            View Product
+          </Button>
+          <Button variant="outlined">Action</Button>
         </div>
       </div>
     </div>
@@ -77,7 +86,10 @@ const OrderProductList = ({ data }) => {
     <div className="OrderProductList">
       <div className="sm dim flex-btw">
         <span className="date">Date : {data?.dateOFOrder ? new Date(data?.dateOFOrder).toDateString() : "00"}</span>
-        <span className="total">{data?.total} Rs</span>
+        <span className="total">
+          {data?.products?.length ? data?.products?.length : "0"} {`${data.products?.length > 1 ? "Orders" : "Order"}`} of
+          total {data?.products[0]?.subTotal} Rs
+        </span>
       </div>
       {data?.products?.map((product, index) => {
         return (

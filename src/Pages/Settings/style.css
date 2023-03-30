@@ -27,7 +27,7 @@
   border: 1px solid var(--borderCommon);
   width: 100%;
   border-radius: 5px;
-  gap: 5px;
+  gap: 7px;
   box-sizing: border-box;
   padding: 8px;
   cursor: pointer;
@@ -39,6 +39,7 @@
 }
 .Settngs .contents .menu .btn .textCont .head {
   font-size: medium;
+  font-weight: 600;
 }
 .Settngs .contents .menu .btn .textCont .tail {
   font-size: small;

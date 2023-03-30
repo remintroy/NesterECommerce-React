@@ -34,6 +34,11 @@ function Settings() {
     <div className="Settngs">
       <Header title="Settings" path="Nester > Settings" />
       <Container>
+        {!thisIsPc && location.pathname === "/settings" && (
+          <>
+            <h1 style={{ textAlign: "center" }}>Settings</h1>
+          </>
+        )}
         <div className="contents">
           {user && ((!thisIsPc && location.pathname === "/settings") || thisIsPc) && (
             <div className="menu">

@@ -5,6 +5,7 @@ import "./ProductView.css";
 import SizeButton from "../SizeButton/SizeButton.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { pushNoti } from "../../redux/notiSlice.js";
+import { useEffect, useState } from "react";
 
 // skelton for prouduct detail view
 const SkeltonLoding = () => {
@@ -77,10 +78,10 @@ const ActionButtons = ({ data }) => {
   // buttons
   return (
     <div className="buttonCont bbr">
-      <Button variant="contained" startIcon={<AddShoppingCartIcon />} color="warning" onClick={() => addToCart(pid)}>
+      <Button variant="outlined" startIcon={<AddShoppingCartIcon />} color="info" onClick={() => addToCart(pid)}>
         Add to cart
       </Button>
-      <Button variant="contained" color="success">
+      <Button variant="outlined" color="success">
         ₹{Number(price) - Number(offer || 0)} : Buy Now
       </Button>
     </div>
@@ -88,6 +89,12 @@ const ActionButtons = ({ data }) => {
 };
 
 function ProductView({ productData }) {
+  const [thisIsPc, setThisIsPc] = useState(window.innerWidth > 766);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setThisIsPc(window.innerWidth > 766));
+  }, []);
+
   const ProductViewPC = () => {
     if (!productData?.title) return <SkeltonLoding />;
 
@@ -96,6 +103,15 @@ function ProductView({ productData }) {
 
     return (
       <div className="ProductViewComponent">
+        {!thisIsPc && (
+          <>
+            <h3 className="br">{title}</h3>
+            <div className="flex">
+              <span className="dim A">{category}</span>
+              <Rating name="rating" value={rating} readOnly />
+            </div>
+          </>
+        )}
         <div className="left">
           <div className="displayImgCont">
             <img src={staticFilesBacked + `/product_images/${pid}1.jpg`} alt="Display" />
@@ -108,33 +124,39 @@ function ProductView({ productData }) {
           </div>
         </div>
         <div className="right">
-          <h3>{title}</h3>
-          <div className="flex br">
-            <span className="b dim A">{category}</span>
-            <Rating name="rating" value={rating} readOnly />
-          </div>
+          {thisIsPc && (
+            <>
+              <h3>{title}</h3>
+              <div className="flex br">
+                <span className="dim A">{category}</span>
+                <Rating name="rating" value={rating} readOnly />
+              </div>
+            </>
+          )}
           <div className="price b flex br">
-            Selling Price: ₹{Number(price) - Number(offer || 0)}
+            {/* Selling Price: ₹{Number(price) - Number(offer || 0)} */}
+            MRP : ₹{price}
             {offer > 0 && <span className="offer"> {offer}Rs OFF</span>}
           </div>
-          <div className="sm b danger">MRP : ₹{price}</div>
-          {stock <= 5 && (
-            <Alert severity="error" className="br">
-              {stock > 0 ? `Only ${stock} Left Hurry up!` : "Out of stock"}
-            </Alert>
-          )}
-          <br />
-          <div>Choose your size</div>
+          {/* <div className="sm b danger">MRP : ₹{price}</div> */}
+          <div className="br">Choose your size</div>
           <div className="br flex">
             <SizeButton />
           </div>
+          {stock <= 5 && (
+            <>
+              <Alert severity="error" className="bbr">
+                {stock > 0 ? `Only ${stock} Left Hurry up!` : "Out of stock"}
+              </Alert>
+            </>
+          )}
           <ActionButtons data={productData} />
           <div className="b bbr">Product description</div>
           <div className="sm dim br">
             Product added on : {new Date(creationTime).toDateString()}
             {stock > 5 && <span className="success"> - In Stock</span>}
           </div>
-          <div className="br">{description}</div>
+          <div className="br dimm">{description}</div>
         </div>
       </div>
     );

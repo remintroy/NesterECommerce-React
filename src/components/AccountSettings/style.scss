@@ -43,6 +43,25 @@
                 border-radius: 2px;
             }
         }
+
+        .list.imgProfile {
+            flex-direction: column;
+            padding:35px 0;
+            border: none;
+
+            img {
+                width: 120px;
+                height: 120px;
+                border-radius: 5px;
+            }
+
+            .editBtn{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                cursor: pointer;
+            }
+        }
     }
 
     .EditBox {
@@ -51,10 +70,10 @@
         left: "50%";
         transform: translate(-50%, -50%);
         width: 300px;
-        background-color:white; 
-        border-radius: "5px"; 
+        background-color: white;
+        border-radius: "5px";
 
-        input{
+        input {
             width: 100%;
         }
     }

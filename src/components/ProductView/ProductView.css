@@ -4,10 +4,11 @@
   grid-template-columns: 400px 1fr;
   border-radius: 5px;
   overflow: hidden;
-  gap: 20px;
+  gap: 30px;
 }
 @media screen and (max-width: 700px) {
   .ProductViewComponent {
+    margin-top: 10px;
     grid-template-columns: 1fr;
     padding: 0;
     background-color: transparent;
@@ -29,16 +30,21 @@
   align-items: center;
   display: grid;
   grid-template-columns: auto auto auto auto;
-  gap: 20px;
+  gap: 10px;
   padding: 20px 0;
   padding-bottom: 0;
 }
 .ProductViewComponent .left .moreImgList img {
   width: 100%;
-  height: 85px;
+  height: 100px;
   max-height: 110px;
   -o-object-fit: scale-down;
      object-fit: scale-down;
+  border: 1px solid var(--borderCommon);
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 .ProductViewComponent .left .displayImgCont {
   box-sizing: border-box;
@@ -61,6 +67,44 @@
   -o-object-fit: scale-down;
      object-fit: scale-down;
 }
+.ProductViewComponent .A {
+  text-transform: capitalize;
+}
+.ProductViewComponent .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ProductViewComponent .b {
+  font-weight: bold;
+}
+.ProductViewComponent .dim {
+  color: gray;
+  font-family: "Roboto Mono", monospace;
+}
+.ProductViewComponent .dimm {
+  color: rgb(37, 37, 37);
+}
+.ProductViewComponent .br {
+  margin-top: 10px;
+}
+.ProductViewComponent .bbr {
+  margin-top: 20px;
+}
+.ProductViewComponent .sm {
+  font-size: small;
+}
+.ProductViewComponent .danger {
+  color: rgb(196, 47, 47);
+}
+.ProductViewComponent .success {
+  color: green;
+}
+.ProductViewComponent h3 {
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+}
 .ProductViewComponent .right {
   overflow: hidden;
   box-sizing: border-box;
@@ -71,9 +115,6 @@
   .ProductViewComponent .right {
     padding: 0;
   }
-}
-.ProductViewComponent .right h3 {
-  margin: 0;
 }
 .ProductViewComponent .right .buttonCont {
   display: flex;
@@ -98,33 +139,4 @@
   background-color: rgb(203, 255, 168);
   color: green;
   font-size: small;
-}
-.ProductViewComponent .right .A {
-  text-transform: capitalize;
-}
-.ProductViewComponent .right .flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.ProductViewComponent .right .b {
-  font-weight: bold;
-}
-.ProductViewComponent .right .dim {
-  color: gray;
-}
-.ProductViewComponent .right .br {
-  margin-top: 10px;
-}
-.ProductViewComponent .right .bbr {
-  margin-top: 20px;
-}
-.ProductViewComponent .right .sm {
-  font-size: small;
-}
-.ProductViewComponent .right .danger {
-  color: rgb(196, 47, 47);
-}
-.ProductViewComponent .right .success {
-  color: green;
 }/*# sourceMappingURL=ProductView.css.map */

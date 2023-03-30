@@ -36,6 +36,22 @@
   max-height: 120px;
   border-radius: 2px;
 }
+.AccountSettings .listCont .list.imgProfile {
+  flex-direction: column;
+  padding: 35px 0;
+  border: none;
+}
+.AccountSettings .listCont .list.imgProfile img {
+  width: 120px;
+  height: 120px;
+  border-radius: 5px;
+}
+.AccountSettings .listCont .list.imgProfile .editBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
 .AccountSettings .EditBox {
   position: absolute;
   top: "50%";

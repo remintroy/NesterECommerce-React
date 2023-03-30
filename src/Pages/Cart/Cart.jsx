@@ -10,7 +10,11 @@ const Cart = () => {
     console.log(user);
   }, [user]);
 
-  return <div className="Cart">Shopping Cart is on maintaince</div>;
+  return (
+    <div className="Cart">
+      <h1 style={{ textAlign: "center" }}>Cart</h1>
+    </div>
+  );
 };
 
 export default Cart;

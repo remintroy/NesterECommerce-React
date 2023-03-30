@@ -139,8 +139,10 @@ function AccountSettings() {
   return (
     <div className="AccountSettings">
       <div className="listCont">
-        <div className="list">
-          <img src={user.photoURL} alt={user.email} />
+        <div className="list imgProfile">
+          <div className="imgCont">
+            <img src={user.photoURL} alt={user.email} />
+          </div>
           <input
             type="file"
             ref={input}
@@ -153,14 +155,16 @@ function AccountSettings() {
             }}
             hidden
           />
-          <IconButton
-            aria-label="Edit"
+          <br />
+          <div
+            className="editBtn"
             onClick={() => {
               if (input.current) input.current.click();
             }}
           >
-            <EditIcon />
-          </IconButton>
+            Edit Profile
+            {/* <EditIcon fontSize="small" /> */}
+          </div>
         </div>
         <div className="list">
           <div className="data dim">{user?.email}</div>
